@@ -5,7 +5,7 @@ import java.util.Date;
 public class BorrowableMedium {
 
     boolean isBorrowed;
-    Date borrowedUntil;
+    Date borrowedUntil = new Date();
 
     public static final int MAX_BORROWING_DURATION = 30;
 
@@ -31,7 +31,18 @@ public class BorrowableMedium {
     };
 
     public boolean canBeBorrowed(Date date){
-        return !isBorrowed && !date.after(borrowedUntil);
+        if (borrowedUntil == null){
+            return true;
+        }
+
+        // check if date exceeds the maximum borrowing duration
+        long diff = date.getTime() - borrowedUntil.getTime();
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+        if (diffDays > MAX_BORROWING_DURATION){
+            return false;
+        }
+
+        return !this.isBorrowed && borrowedUntil.before(date);
     };
 
     // public abstract void returnMedium();
