@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class BorrowableMedium {
 
-    boolean isBorrowed;
-    Date borrowedUntil = new Date();
+    protected boolean isBorrowed;
+    protected Date borrowedUntil = new Date();
 
-    public static final int MAX_BORROWING_DURATION = 30;
+    protected static final int MAX_BORROWING_DURATION = 30;
 
     public boolean isBorrowed() {
         return isBorrowed;
@@ -38,12 +38,16 @@ public class BorrowableMedium {
         // check if date exceeds the maximum borrowing duration
         long diff = date.getTime() - borrowedUntil.getTime();
         long diffDays = diff / (24 * 60 * 60 * 1000);
-        if (diffDays > MAX_BORROWING_DURATION){
+        if (diffDays > getMaximumBorrowingDuration()){
             return false;
         }
 
         return !this.isBorrowed && borrowedUntil.before(date);
     };
+
+    protected int getMaximumBorrowingDuration(){
+        return MAX_BORROWING_DURATION;
+    }
 
     // public abstract void returnMedium();
 }

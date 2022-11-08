@@ -1,7 +1,8 @@
 import verbung.model.BorrowableMedium;
+import verbung.model.Software;
+import verbung.model.Video;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class Main {
 
@@ -9,6 +10,7 @@ public class Main {
 
         testBorrowableMedium();
         testVideo();
+        testSoftware();
 
     }
 
@@ -46,6 +48,16 @@ public class Main {
         video.borrowUntil(cal.getTime());
 
         System.out.println("Medium ist ausgeliehen: " + video.isBorrowed());
+    }
+
+    public static void testSoftware (){
+        Software software = new Software();
+
+        // borrow software until 15 days
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, 15);
+
+        System.out.println("Software kann ausgeliehen werden (15 Tage): " + software.canBeBorrowed(cal.getTime()));
     }
 
 }

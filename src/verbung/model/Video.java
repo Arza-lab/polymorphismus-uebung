@@ -1,3 +1,5 @@
+package verbung.model;
+
 import verbung.model.BorrowableMedium;
 
 public class Video extends BorrowableMedium {
