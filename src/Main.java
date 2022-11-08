@@ -2,6 +2,7 @@ import verbung.model.BorrowableMedium;
 import verbung.model.Software;
 import verbung.model.Video;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Main {
@@ -11,6 +12,7 @@ public class Main {
         testBorrowableMedium();
         testVideo();
         testSoftware();
+        testPolymorphie();
 
     }
 
@@ -58,6 +60,51 @@ public class Main {
         cal.add(Calendar.DAY_OF_MONTH, 15);
 
         System.out.println("Software kann ausgeliehen werden (15 Tage): " + software.canBeBorrowed(cal.getTime()));
+    }
+
+    public static void testPolymorphie(){
+        // arraylist of borrowable media
+        ArrayList<BorrowableMedium> media = new ArrayList<BorrowableMedium>();
+
+        // add video
+        Video video = new Video();
+        video.setProducer("Hans Meier");
+        media.add(video);
+
+        // add software
+        Software software = new Software();
+        media.add(software);
+
+        // for each borrowable medium
+        for (BorrowableMedium medium : media){
+            // borrow medium until 15 days
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_MONTH, 5);
+
+            //type of medium
+            String type = medium.getClass().getSimpleName();
+
+            System.out.println("Polymorphie:" + type);
+            System.out.println("(5 Tage)Medium kann ausgeliehen werden: " + medium.canBeBorrowed(cal.getTime()));
+
+            // borrow medium until 9 days
+            cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_MONTH, 9);
+
+            System.out.println("(9 Tage)Medium kann ausgeliehen werden: " + medium.canBeBorrowed(cal.getTime()));
+
+            // borrow medium until 27 days
+            cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_MONTH, 27);
+
+            System.out.println("(27 Tage)Medium kann ausgeliehen werden: " + medium.canBeBorrowed(cal.getTime()));
+
+            // borrow medium until 50 days
+            cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_MONTH, 50);
+
+            System.out.println("(50 Tage)Medium kann ausgeliehen werden: " + medium.canBeBorrowed(cal.getTime()));
+        }
     }
 
 }
