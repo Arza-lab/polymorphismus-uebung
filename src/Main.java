@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         testBorrowableMedium();
+        testVideo();
 
     }
 
@@ -29,9 +30,22 @@ public class Main {
 
         // heute in 31 Tagen
         cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH, 32);
+        cal.add(Calendar.DAY_OF_MONTH, 31);
 
         System.out.println("Heute in 31 Tagen. Medium kann ausgeliehen werden: " + medium.canBeBorrowed(cal.getTime()));
+    }
+
+    public static void testVideo (){
+        Video video = new Video();
+        video.setProducer("Hans Meier");
+        System.out.println("Producer: " + video.getProducer());
+
+        // borrow video until 15 days
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, 15);
+        video.borrowUntil(cal.getTime());
+
+        System.out.println("Medium ist ausgeliehen: " + video.isBorrowed());
     }
 
 }
